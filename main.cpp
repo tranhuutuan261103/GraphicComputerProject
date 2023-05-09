@@ -15,9 +15,7 @@ MyModelGL model;
 
 void myInit(){
 	m = MyPoint(0,0,0);
-	m.getPoint();
 	cube = MyCube(m, 3);
-	cube.getCube();
 }
 
 void keyboard(unsigned char key, int x,int y){
@@ -83,10 +81,20 @@ void SpecialKey(int key, int x, int y){
 	}
 }
 
+void printfInfor(){
+	model.printfModelMatrix();
+	cube.getCube();
+	cout << endl;
+	cout << "--------------------";
+}
+
 void display(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	model.LoadModelGL();
 	cube.drawCube();
+	
+	printfInfor();
+	
 	glFlush();
 }
 

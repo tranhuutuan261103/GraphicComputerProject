@@ -15,9 +15,12 @@ class MyCube{
 			this->sideLength = sideLength;
 		}
 		void getCube(){
+			cout << "Tam hinh lap phuong la: ";
 			centerPoint.getPoint();
 			cout << endl;
+			cout << "Do dai canh:";
 			cout << sideLength;
+			cout << endl;
 		}
 		void drawCube();
 		void ZoomIn();

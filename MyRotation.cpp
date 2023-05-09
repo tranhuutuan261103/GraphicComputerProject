@@ -46,6 +46,7 @@ Matrix MyRotaion::Translate(MyPoint p){
 }
 
 // error
+// don't use
 Matrix MyRotaion::Rotate(MyPoint P, MyPoint vertorRotate, float degree){
 	
 	float ThetaX = atan(vertorRotate.getY() / vertorRotate.getZ()) * 180/3.14;

@@ -1,4 +1,8 @@
 #include "Matrix.h"
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
 
 Matrix::Matrix(int n)
 {
@@ -34,6 +38,15 @@ Matrix ::~Matrix()
 		delete[] data[i];
 	}
 	delete[] data;
+}
+
+void Matrix::printfMatrix(){
+	for (int i = 0;i<this->n;i++){
+		for(int j = 0;j<this->n;j++){
+			cout << fixed << setprecision(5) << setw(8) << this->data[i][j] << "    ";
+		}
+		cout << "\n";
+	}
 }
 
 Matrix Matrix::IdentityMatrix(){

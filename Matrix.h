@@ -9,6 +9,7 @@ class Matrix{
 		Matrix(int n = 4);
 		Matrix(const Matrix &x);
 		~Matrix();
+		void printfMatrix();
 		Matrix IdentityMatrix();
 		const Matrix operator*(const Matrix &x);
 		Matrix operator=(const Matrix &x);

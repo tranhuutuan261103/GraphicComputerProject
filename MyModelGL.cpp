@@ -18,8 +18,8 @@ void MyModelGL::LoadModelGL(){
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glFrustum(-1.5,1.5,-1.5,1.5,1.5,30);
-	gluLookAt(cameraPoint.getX(),cameraPoint.getY(),cameraPoint.getZ(),targetPoint.getX(),targetPoint.getY(),targetPoint.getZ(),0,1,0);
-	//CameraLookAt();
+	//gluLookAt(cameraPoint.getX(),cameraPoint.getY(),cameraPoint.getZ(),targetPoint.getX(),targetPoint.getY(),targetPoint.getZ(),0,1,0);
+	this->model = CameraLookAt();
 }
 
 Matrix MyModelGL::CameraLookAt(){
@@ -28,7 +28,6 @@ Matrix MyModelGL::CameraLookAt(){
 	MyPoint f = MyPoint();
 	f = cameraPoint - targetPoint;
 	f = f.Normalize();
-	f.getPoint();
 	MyPoint r = up * f;
 	r = r.Normalize();
 	MyPoint u = f * r;
@@ -56,6 +55,16 @@ Matrix MyModelGL::CameraLookAt(){
 	}
 	glMultMatrixd(&m2[0][0]);
 	glTranslated(-cameraPoint.getX(),-cameraPoint.getY(),-cameraPoint.getZ());
+	
+	double temp[4][4];
+	glGetDoublev(GL_PROJECTION_MATRIX,&temp[0][0]);
+	
+	
+	for(int i = 0;i<4;i++){
+		for(int j = 0;j<4;j++){
+			model(i,j) = temp[i][j];
+		}
+	}
 	
 	return model;
 }
@@ -160,30 +169,6 @@ void MyModelGL::TargetMoveRight(){
 	targetPoint.setZ(znew + cameraPoint.getZ());
 }
 
-//void MyModelGL::TargetMoveUp(){
-//	float x = targetPoint.getX() - cameraPoint.getX();
-//	float y = targetPoint.getY() - cameraPoint.getY();
-//	float z = targetPoint.getZ() - cameraPoint.getZ();
-//	MyPoint p = MyPoint(x,y,z);
-//	MyPoint l = MyPoint(x,0,z);
-//	MyPoint go = go.LinearAlgebra(p, l);
-//	go.getPoint();
-//	
-//	
-//	MyRotaion r;
-//	Matrix m = r.Rotate(cameraPoint,go, 90);
-//	
-//	float xnew = m(0,0) * targetPoint.getX() + m(0,1) * targetPoint.getY() + m(0,2) * targetPoint.getZ() + m(0,3);
-//	float ynew = m(1,0) * targetPoint.getX() + m(1,1) * targetPoint.getY() + m(1,2) * targetPoint.getZ() + m(1,3);
-//	float znew = m(2,0) * targetPoint.getX() + m(2,1) * targetPoint.getY() + m(2,2) * targetPoint.getZ() + m(2,3);
-//	
-//	targetPoint.setX(xnew);
-//	targetPoint.setY(ynew);
-//	targetPoint.setZ(znew);
-//	targetPoint.getPoint();
-//	cout << endl;
-//}
-
 void MyModelGL::TargetMoveUp(){
 	targetPoint.setY(targetPoint.getY() + v);
 }
@@ -193,5 +178,7 @@ void MyModelGL::TargetMoveDown(){
 }
 
 void MyModelGL::printfModelMatrix(){
-	
+	cout << "\n\nMa tran bien doi la:\n";
+	this->model.printfMatrix();
+	cout << endl;
 }
